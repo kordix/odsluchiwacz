@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<style>
+		[v-cloak] {display: none}
+		</style>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+
+		<div id="app" v-cloak>
+			<input v-model="term" type="search">
+			<button @click="search">Search</button>
+			<p/>
+
+			<div v-for="result in filtered" class="result">
+				<img :src="result.artworkUrl100">
+				<b>Artist:</b> {{result.artistName}}<br/>
+				<b>Track:</b> {{result.trackName}}<br/>
+				<b>Released:</b> {{result.releaseDate | formatDate}}<br/>
+				<button @click="play(result.previewUrl)">&#9658; Play Sample</button>
+				<button>Like</button>
+				<button @click="dislike(result.trackId)">Dislike</button>
+
+				<p>{{result.trackId}}</p>
+
+				<br clear="left">
+			</div>
+
+			<div v-if="noResults">
+				Sorry, but no results were found. I blame Apple.
+			</div>
+
+			<div v-if="searching">
+				<i>Searching...</i>
+			</div>
+
+			<button @click="save">Zapisz</button>
+
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+		<script src="https://unpkg.com/vue"></script>
+		<script src="app.js"></script>
+	</body>
+</html>
